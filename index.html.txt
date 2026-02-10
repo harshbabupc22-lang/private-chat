@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Private SSR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="splash">
+  <h1>SSR</h1>
+  <p>Private SSR</p>
+</div>
+
+<div id="app" style="display:none;">
+  <h2>Private SSR Chat</h2>
+
+  <div id="chat"></div>
+
+  <input id="msg" placeholder="Type a message..." />
+  <select id="timer">
+    <option value="">Normal</option>
+    <option value="5">Private 5s</option>
+    <option value="10">Private 10s</option>
+  </select>
+  <button onclick="send()">Send</button>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+
+<script>
+  setTimeout(() => {
+    document.getElementById("splash").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  }, 2500);
+</script>
+
+</body>
+</html>

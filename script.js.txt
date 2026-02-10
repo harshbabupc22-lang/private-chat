@@ -1,0 +1,33 @@
+const socket = io();
+const chat = document.getElementById("chat");
+const msg = document.getElementById("msg");
+const timerSelect = document.getElementById("timer");
+
+function send() {
+  const text = msg.value.trim();
+  const timer = timerSelect.value;
+
+  if (!text) return;
+
+  const data = {
+    id: Date.now(),
+    text,
+    timer: timer ? Number(timer) : null
+  };
+
+  socket.emit("chat", data);
+  msg.value = "";
+}
+
+socket.on("chat", (data) => {
+  const div = document.createElement("div");
+  div.id = data.id;
+  div.innerText = data.text + (data.timer ? ` ⏱️(${data.timer}s)` : "");
+  chat.appendChild(div);
+});
+
+socket.on("deleteMsg", (id) => {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+});
+
